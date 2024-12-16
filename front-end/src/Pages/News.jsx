@@ -5,13 +5,13 @@ import style from '../components/News.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // FontAwesome for icons
 import { faTrash } from '@fortawesome/free-solid-svg-icons'; // Import necessary icons
 import { Dialog, DialogContent } from "@mui/material";
-
+import {domainName} from "../DomainName"
 
 var today = new Date().toISOString().split('T')[0]
 // Function to fetch news from the API, sorted by newsID in descending order
 const fetchNews = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/v1/news'); // Fetch news from backend
+    const response = await axios.get(`${domainName}/api/v1/news`); // Fetch news from backend
     return response.data.sort((a, b) => b.newsID - a.newsID); // Sort news by most recent (highest ID first)
   } catch (error) {
     console.error('Error fetching news:', error); 
@@ -59,7 +59,7 @@ const News = () => {
 
     // Send POST request to backend to add news
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/news', formData, {
+      const response = await axios.post(`${domainName}/api/v1/news`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -80,7 +80,12 @@ const News = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this news?');
     if (!confirmDelete) return;
     try {
+<<<<<<< Updated upstream
       await axios.delete(`http://localhost:8080/api/v1/news/${newsID}`); // Send DELETE request
+=======
+      await axios.delete(`${domainName}/api/v1/news/${newsID}`); // Send DELETE request
+      
+>>>>>>> Stashed changes
       // Fetch the updated list of news and update the state
       const latestNews = await fetchNews();
       setNews(latestNews);
