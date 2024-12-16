@@ -150,12 +150,7 @@ const onDeleteClick = async (deliverableId) => {
     try {
       await axios.delete(`http://localhost:8080/deliverable/delete/${deliverableId}`);
       loadData();
-      if (response.status === 200) {
-        alert('Deliverable deleted successfully');
-        loadData();
-      } else {
-        alert('Failed to delete deliverable');
-      }
+      alert('Deliverable deleted successfully');
     } catch (error) {
       console.error("Error deleting deliverable:", error);
       alert("Failed to delete deliverable!");

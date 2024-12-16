@@ -198,7 +198,7 @@ const FileUploadDownload = () => {
                     </div>
                     <div className="inputbox">
                       <label>Name</label>
-                      <input type="text" placeholder="Enter a Display Name" value={displayName} onChange={handleDisplayNameChange} className = "field"/>
+                      <input type="text" placeholder="Enter a Display Name" value={displayName} onChange={handleDisplayNameChange} className = "field" required/>
                     </div>
                     <div className="inputbox">
                       <label>File</label>

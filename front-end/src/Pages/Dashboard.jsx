@@ -19,7 +19,7 @@ import { faPen, faTrash, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 /* Dashboard Page */
 function Dashboard() {
-  
+  const today = new Date().toISOString().split('T')[0];
   const [activeTab, setActiveTab] = useState('Tasks');
   const [tasks, setTasks] = useState([]);
   const [taskListNotEmpty, setTaskListNotEmpty] = useState(false);
@@ -280,6 +280,9 @@ function Dashboard() {
                 name="date"
                 label="Event Date"
                 type="date"
+                inputProps={{
+                  min: today, // Disable past dates
+                }}
                 value={eventDetails.date}
                 onChange={handleInputChange}
                 

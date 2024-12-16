@@ -1,4 +1,4 @@
-<img src ="https://github.com/wethmiranasinghe/e20-co200-Erasmus-plus-Project-Web-and-MIS/blob/main/docs/images/erasmus-plus-logo.jpg" width="256" height="144" align="left"/> <img src ="https://github.com/wethmiranasinghe/e20-co200-Erasmus-plus-Project-Web-and-MIS/blob/main/docs/images/CYCLE%20logo.png" width="256" height="144" align="centre"/>
+<img src ="https://github.com/wethmiranasinghe/e20-co227-Erasmus-plus-Project-Web-and-MIS/blob/main/docs/images/erasmus-plus-logo.jpg" width="256" height="144" align="left"/> <img src ="https://github.com/wethmiranasinghe/e20-co227-Erasmus-plus-Project-Web-and-MIS/blob/main/docs/images/CYCLE%20logo.png" width="256" height="144" align="centre"/>
 
 ___
 # Erasmus+ Project Web and MIS

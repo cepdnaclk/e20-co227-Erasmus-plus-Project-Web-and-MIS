@@ -109,30 +109,6 @@ function Header(){
     const location = useLocation();
     //to navigate between pages
     const navigate = useNavigate();
-    //Const for edit mode
-    const [isEditMode, setIsEditMode] = useState(false);
-        
-    //Change the vie mode and the edit mode when the switch handle is toggled
-    //Implement the edit mode of the website
-    const handleToggle = (checked) => {
-        setIsEditMode(checked);
-        };
-    
-        // // Initialize the state with a function that reads from localStorage
-        // const [isEditMode, setIsEditMode] = useState(() => {
-        //     const savedEditModeValue = localStorage.getItem('isEditMode');
-        // return savedEditModeValue !== null ? JSON.parse(savedEditModeValue) : false; // Default to false if no saved value
-        // });
-    
-        // // Change the view mode and the edit mode when the switch handle is toggled
-        // const handleToggle = () => {
-
-        //     setIsEditMode(checked => ({
-        //         isEditMode: !checked.isEditMode}));
-        //     localStorage.setItem('isEditMode', JSON.stringify(isEditMode));
-        //     console.log(JSON.parse(localStorage.getItem('isEditMode')));
-        // };
-        
 
     // set hamburger menu to close when a link is clicked
     const handleLinkClick = () => {
@@ -386,21 +362,7 @@ const renderNotifications = () => {
                 </ul>             
                 {isVisible && <div className='top-login-bar'><button className="Login-button" onClick={googleLogin}>LOGIN</button></div>}
                     <div >
-                        <ul className={loggedInUserState ? "adminNavBarRight":"non-logged-user-panel"}>                  
-                            <span id="switchLabel">{isEditMode ? "Edit Mode" : "View Mode"}</span>
-                            <li><Switch 
-                                        onChange={handleToggle} 
-                                        checked={isEditMode} 
-                                        offColor="#888"
-                                        onColor="#324e94"
-                                        uncheckedIcon={false}
-                                        checkedIcon={false}
-                                        activeBoxShadow ={null}
-                                        height={18}
-                                        width={30}                                    
-                                />                       
-                            
-                            </li>                                            
+                        <ul className={loggedInUserState ? "adminNavBarRight":"non-logged-user-panel"}>       
                             <li onClick={toggleChat}><FontAwesomeIcon icon={faMessage}/></li>
                             <li onClick={showNotificationInterface}>
                                 <FontAwesomeIcon icon={faBell}/>
