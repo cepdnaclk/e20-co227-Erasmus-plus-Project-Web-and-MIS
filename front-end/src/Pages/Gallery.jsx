@@ -5,6 +5,7 @@ import style from '../components/Gallery.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // FontAwesome for icons
 import { faTrash } from '@fortawesome/free-solid-svg-icons'; // Import necessary icons
 import { Dialog, DialogContent } from "@mui/material";
+import {domainName} from "../DomainName"
 
 /**
  * Fetch gallery items from the backend API.
@@ -13,7 +14,7 @@ import { Dialog, DialogContent } from "@mui/material";
  */
 const fetchGallery = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/v1/gallery');
+    const response = await axios.get(`${domainName}/api/v1/gallery`);
     return response.data.sort((a, b) => b.albumID - a.albumID); // albumID not albumId
   } catch (error) {
     console.error('Error fetching gallery:', error); 
@@ -66,7 +67,7 @@ const Gallery = () => {
     formData.append('albumCreatedBy', loggedInUser.username); // Pass logged-in user as the creator
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/gallery', formData, {
+      const response = await axios.post(`${domainName}/api/v1/gallery`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -90,7 +91,7 @@ const Gallery = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this album?');
     if (!confirmDelete) return;
     try {
-      await axios.delete(`http://localhost:8080/api/v1/gallery/${albumID}`);
+      await axios.delete(`${domainName}/api/v1/gallery/${albumID}`);
       const latestGallery = await fetchGallery();
       setGallery(latestGallery);
       alert('Album deleted successfully');

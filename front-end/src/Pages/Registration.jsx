@@ -5,6 +5,7 @@ import style from "../components/Registration.module.css"; // Assuming you have 
 import cylcleLogo from '../assets/CYCLE-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {domainName} from "../DomainName"
 
 function Registration() {
   // State for form inputs
@@ -33,7 +34,7 @@ function Registration() {
 
     try {
       // Send POST request to backend
-      const response = await axios.post("http://localhost:8080/api/v1/registration", userData);
+      const response = await axios.post(`${domainName}/api/v1/registration`, userData);
 
       // Handle success (optional)
       if (response.status === 200) {

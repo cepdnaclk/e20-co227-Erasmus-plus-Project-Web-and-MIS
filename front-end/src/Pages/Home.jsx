@@ -6,6 +6,7 @@ import ParticipantMap from '../bodyComponents/participantMap.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCalendar, faFolder, faMapMarkerAlt, faChartPie, faBullseye, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import {Link, Outlet} from 'react-router-dom';
+import {domainName} from "../DomainName"
 
 import targerGroupStaff from '../assets/TargetGroupIcons/presentation.png';
 import targerGroupStudents from '../assets/TargetGroupIcons/graduating-student.png';
@@ -111,7 +112,7 @@ function Home() {
   useEffect(() => {
     const fetchLatestProject = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/project/latest");
+        const response = await axios.get(`${domainName}/api/project/latest`);
         if (response.data) {
           setProjectId(response.data.id);
           setProjectSummaryStatus(response.data.status || "Ongoing");
@@ -147,10 +148,10 @@ function Home() {
     };
 
     try {
-      await axios.put(`http://localhost:8080/api/project/${projectId}`, updatedProject);
+      await axios.put(`${domainName}/api/project/${projectId}`, updatedProject);
 
       // Fetch the latest project details after updating
-      const response = await axios.get("http://localhost:8080/api/project/latest");
+      const response = await axios.get(`${domainName}/api/project/latest`);
       setProjectSummaryStatus(response.data.status || "Ongoing");
       setProjectSummaryEndDate(response.data.endDate || "2026-11-30");
 

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload ,faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogContent } from "@mui/material";
 import style from '../components/Download.module.css';
+import {domainName} from "../DomainName"
 
 const FileUploadDownload = () => {
   // State management
@@ -25,7 +26,7 @@ const FileUploadDownload = () => {
   // Fetches uploaded files from the backend API
   const fetchUploadedFiles = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/files');
+      const response = await axios.get(`${domainName}/api/v1/files`);
       setUploadedFiles(response.data);
     } catch (error) {
       console.error('Error fetching files:', error);
@@ -88,7 +89,7 @@ const FileUploadDownload = () => {
 
     // Upload file or link to the backend
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/files/upload', formData, {
+      const response = await axios.post(`${domainName}/api/v1/files/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -116,7 +117,7 @@ const FileUploadDownload = () => {
   // Handles file download
   const handleDownload = async (fileId, fileName) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v1/files/${fileId}`, {
+      const response = await axios.get(`${domainName}/api/v1/files/${fileId}`, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -138,7 +139,7 @@ const FileUploadDownload = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await axios.delete(`http://localhost:8080/api/v1/files/${fileId}`);
+      const response = await axios.delete(`${domainName}/api/v1/files/${fileId}`);
       if (response.status === 200) {
         alert('File deleted successfully');
         fetchUploadedFiles();

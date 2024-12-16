@@ -7,6 +7,7 @@ import style from '../components/Login.module.css';
 import cylcleLogo from '../assets/CYCLE-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {domainName} from "../DomainName"
 
 
 export let appUserRole = "";
@@ -26,7 +27,7 @@ function Login() {
     async function login(event) {
         event.preventDefault();
         try {
-            await axios.post("http://localhost:8080/api/v1/registration/login", {
+            await axios.post(`${domainName}/api/v1/registration/login`, {
                 email: email,
                 password: password,
             }).then((res) => {
@@ -63,7 +64,7 @@ function Login() {
     
     const googleLogin = () => {
         // Redirect to the backend for Google login
-        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+        window.location.href = `${domainName}/oauth2/authorization/google`;
     }
 
     return (

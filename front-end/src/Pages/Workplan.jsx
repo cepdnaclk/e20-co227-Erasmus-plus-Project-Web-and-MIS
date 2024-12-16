@@ -5,6 +5,7 @@ import { loggedInUser } from '../components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogContent } from "@mui/material";
+import {domainName} from "../DomainName"
 
 function Workplan() {
 
@@ -19,7 +20,7 @@ function Workplan() {
 
   const loadData=async()=>{
       try {
-        const result = await axios.get("http://localhost:8080/workplan/getAll");
+        const result = await axios.get(`${domainName}/api/v1/workplan/getAll`);
         setWorkplanActivities(result.data);
       } catch (error) {
         console.error("Error loading workplan activities:", error);
@@ -111,7 +112,7 @@ function Workplan() {
     const onAddSubmit = async (e) => {
       e.preventDefault(); // Prevent default form submission
       try {
-        await axios.post("http://localhost:8080/workplan/add", activity);
+        await axios.post(`${domainName}/api/v1/workplan/add`, activity);
         // Reload the data after successful submission
         loadData();       
         // Clear the form fields after successful submission if needed
@@ -139,7 +140,7 @@ function Workplan() {
       const confirmUpdate = window.confirm('Are you sure you want to update this activity?');
       if (!confirmUpdate) return; 
       try {
-        await axios.put(`http://localhost:8080/workplan/update/${activity.activityId}`, activity);
+        await axios.put(`${domainName}/api/v1/workplan/update/${activity.activityId}`, activity);
         // Optionally, reload the data after successful submission
         loadData();
         setEditRow(false);
@@ -166,7 +167,7 @@ function Workplan() {
     const confirmDelete = window.confirm('Are you sure you want to delete this activity?');
     if (!confirmDelete) return; 
     try {
-      await axios.delete(`http://localhost:8080/workplan/delete/${activityId}`);
+      await axios.delete(`${domainName}/api/v1/workplan/delete/${activityId}`);
       loadData();
       if (response.status === 200) {
         alert('Activity deleted successfully');

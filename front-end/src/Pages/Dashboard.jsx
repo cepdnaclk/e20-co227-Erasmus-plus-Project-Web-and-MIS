@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import style from "../components/Dashboard.module.css";
+import {domainName} from "../DomainName"
 
 import {loggedInUser} from '../components/Header.jsx'
 
@@ -39,7 +40,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/tasks');
+        const response = await axios.get(`${domainName}/api/v1/tasks`);
         setTasks(response.data);
         setTaskListNotEmpty(response.data.length !== 0);
       } catch (error) {
@@ -49,7 +50,7 @@ function Dashboard() {
 
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/events');
+        const response = await axios.get(`${domainName}/api/v1/events`);
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error);
@@ -77,11 +78,11 @@ function Dashboard() {
     e.preventDefault();
     if (editingEventId) {
       // Update existing event
-      await axios.put(`http://localhost:8080/api/v1/events/${editingEventId}`, eventDetails);
+      await axios.put(`${domainName}/api/v1/events/${editingEventId}`, eventDetails);
       setEditingEventId(null);
     } else {
       // Create new event
-      await axios.post('http://localhost:8080/api/v1/events', eventDetails);
+      await axios.post(`${domainName}/api/v1/events`, eventDetails);
     }
     setEventDetails({ title: '', details: '', date: '', time: '', venue: '' });
     setShowEventForm(false);  // Close dialog after submit
@@ -104,7 +105,7 @@ function Dashboard() {
     const confirmDelete = window.confirm("Are you sure you want to delete this event?");
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/v1/events/${id}`);
+        await axios.delete(`${domainName}/api/v1/events/${id}`);
         fetchEvents(); // Refresh events after deletion
       } catch (error) {
         console.error('Error deleting event:', error);
@@ -114,7 +115,7 @@ function Dashboard() {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/events');
+      const response = await axios.get(`${domainName}/api/v1/events`);
       setEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error);
