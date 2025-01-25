@@ -6,6 +6,8 @@ import { faPen, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { loggedInUser } from '../components/Header';
 import { Dialog, DialogContent } from "@mui/material";
 import {domainName} from "../DomainName"
+
+
 /*Deliverables Page */
 function Deliverables() {
 
@@ -145,18 +147,6 @@ const onInputChange=(e)=>{
 const onDeleteClick = async (deliverableId) => {
   console.log("Delete button clicked");
   console.log(deliverableId);
-<<<<<<< Updated upstream
-  const confirmDelete = window.confirm('Are you sure you want to delete this deliverable?');
-    if (!confirmDelete) return;  
-    try {
-      await axios.delete(`http://localhost:8080/deliverable/delete/${deliverableId}`);
-      loadData();
-      alert('Deliverable deleted successfully');
-    } catch (error) {
-      console.error("Error deleting deliverable:", error);
-      alert("Failed to delete deliverable!");
-    }
-=======
   try {
     await axios.delete(`${domainName}/api/v1/deliverable/delete/${deliverableId}`);
     loadData();
@@ -164,7 +154,6 @@ const onDeleteClick = async (deliverableId) => {
   } catch (error) {
     console.error("Error deleting deliverable:", error);
   }
->>>>>>> Stashed changes
 }
 
 /************************** View a specific entry *************************************/

@@ -1,1 +1,2 @@
-export const domainName="https://icpc.pdn.ac.lk"
+export const domainName="http://cycle.pdn.ac.lk"
+

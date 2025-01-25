@@ -200,12 +200,8 @@ const onUpdateSubmit = async (e) => {
   }
   formData.append("assignedUsers",JSON.stringify(assignedUsers.map(({ admin, ...assignedUsersDetails }) => assignedUsersDetails)))
   try {
-<<<<<<< Updated upstream
-    await axios.put(`http://localhost:8080/api/v1/tasks/updateWithUsers`, formData, {
-=======
     console.log("task.... ",formData)
     await axios.put(`${domainName}/api/v1/tasks/updateWithUsers`, formData, {
->>>>>>> Stashed changes
       headers: {
         'Content-Type': 'multipart/form-data'
       }});;

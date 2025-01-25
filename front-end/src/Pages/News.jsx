@@ -80,12 +80,8 @@ const News = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this news?');
     if (!confirmDelete) return;
     try {
-<<<<<<< Updated upstream
-      await axios.delete(`http://localhost:8080/api/v1/news/${newsID}`); // Send DELETE request
-=======
       await axios.delete(`${domainName}/api/v1/news/${newsID}`); // Send DELETE request
       
->>>>>>> Stashed changes
       // Fetch the updated list of news and update the state
       const latestNews = await fetchNews();
       setNews(latestNews);
