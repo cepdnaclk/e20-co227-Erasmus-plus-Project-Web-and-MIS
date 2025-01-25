@@ -44,14 +44,14 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(authz -> authz
 
                                 .requestMatchers("/api/v*/registration/**", "/api/v1/news/**", "/api/v1/gallery/**", "/api/v*/files/**","/api/v*/myFiles/**",
-                                        "/api/v*/registration/login/**", "/oauth2/**","/api/v1/tasks/**", "/api/v1/users/**", "/deliverable/**", "/workplan/**", "/api/project/**", "/api/v1/events/**", "/api/v1/notifications/**")
+                                        "/api/v*/registration/login/**", "/api/v*/oauth2/**","/api/v1/tasks/**", "/api/v1/users/**", "/api/v*/deliverable/**", "/api/v*/workplan/**", "/api/project/**", "/api/v1/events/**", "/api/v1/notifications/**")
 
                                 .permitAll()
                                 .anyRequest().authenticated()
                         // .anyRequest().permitAll()
                 )
 //                .formLogin(withDefaults());
-                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("http://localhost:5173", true));
+                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("https://icpc.pdn.ac.lk", true));
         return http.build();
     }
 
@@ -91,7 +91,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:5173");
+        corsConfiguration.addAllowedOrigin("https://icpc.pdn.ac.lk");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.setAllowCredentials(true);

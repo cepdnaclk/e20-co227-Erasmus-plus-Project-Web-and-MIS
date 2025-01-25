@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { loggedInUser } from '../components/Header';
 import { Dialog, DialogContent } from "@mui/material";
+import {domainName} from "../DomainName"
+
 
 /*Deliverables Page */
 function Deliverables() {
@@ -20,7 +22,7 @@ function Deliverables() {
 
   const loadData=async()=>{
     try{
-      const result=await  axios.get("http://localhost:8080/deliverable/getAll");
+      const result=await  axios.get(`${domainName}/api/v1/deliverable/getAll`);
       setDeliverables(result.data);
     }catch(error){
       console.error("Error loading deliverables:", error);
@@ -91,7 +93,7 @@ const onInputChange=(e)=>{
   const onAddSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
     try {
-      await axios.post("http://localhost:8080/deliverable/add", deliverable);
+      await axios.post(`${domainName}/api/v1/deliverable/add`, deliverable);
       // Reload the data after successful submission
       loadData();
       // Clear the form fields after successful submission if needed
@@ -119,7 +121,7 @@ const onInputChange=(e)=>{
     const confirmUpdate = window.confirm('Are you sure you want to update this deliverable?');
     if (!confirmUpdate) return; 
     try {
-      await axios.put(`http://localhost:8080/deliverable/update/${deliverable.deliverableId}`, deliverable);
+      await axios.put(`${domainName}/api/v1/deliverable/update/${deliverable.deliverableId}`, deliverable);
       // Optionally, reload the data after successful submission
       loadData();
       setEditRow(false);
@@ -145,16 +147,13 @@ const onInputChange=(e)=>{
 const onDeleteClick = async (deliverableId) => {
   console.log("Delete button clicked");
   console.log(deliverableId);
-  const confirmDelete = window.confirm('Are you sure you want to delete this deliverable?');
-    if (!confirmDelete) return;  
-    try {
-      await axios.delete(`http://localhost:8080/deliverable/delete/${deliverableId}`);
-      loadData();
-      alert('Deliverable deleted successfully');
-    } catch (error) {
-      console.error("Error deleting deliverable:", error);
-      alert("Failed to delete deliverable!");
-    }
+  try {
+    await axios.delete(`${domainName}/api/v1/deliverable/delete/${deliverableId}`);
+    loadData();
+    alert("Deliverable Deleted!");
+  } catch (error) {
+    console.error("Error deleting deliverable:", error);
+  }
 }
 
 /************************** View a specific entry *************************************/

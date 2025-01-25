@@ -7,8 +7,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/workplan")
-@CrossOrigin("http://localhost:5173")
+@RequestMapping("/api/v1/workplan")
 public class WorkplanController{
     @Autowired
     private WorkplanService workplanService;

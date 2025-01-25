@@ -5,6 +5,7 @@ import fileDownload from '../assets/download.png';
 import { loggedInUser } from '../components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload ,faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import {domainName} from "../DomainName"
 
 
 const FileUploadDownload = () => {
@@ -27,7 +28,7 @@ const FileUploadDownload = () => {
   // Fetches uploaded files from the backend API
   const fetchUploadedFiles = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v1/myFiles?email=${user.email}`);
+      const response = await axios.get(`${domainName}/api/v1/myFiles?email=${user.email}`);
       setUploadedFiles(response.data);
     } catch (error) {
       console.error('Error fetching files:', error);
@@ -79,7 +80,7 @@ const FileUploadDownload = () => {
 
     // Upload file or link to the backend
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/myFiles/upload', formData, {
+      const response = await axios.post(`${domainName}/api/v1/myFiles/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -104,7 +105,7 @@ const FileUploadDownload = () => {
   // Handles file download
   const handleDownload = async (myFileId, fileName) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/v1/myFiles/${myFileId}`, {
+      const response = await axios.get(`${domainName}/api/v1/myFiles/${myFileId}`, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -126,7 +127,7 @@ const FileUploadDownload = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await axios.delete(`http://localhost:8080/api/v1/myFiles/${myFileId}`);
+      const response = await axios.delete(`${domainName}/api/v1/myFiles/${myFileId}`);
       if (response.status === 200) {
         alert('File deleted successfully');
         fetchUploadedFiles(user.email);

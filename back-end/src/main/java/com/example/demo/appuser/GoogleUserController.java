@@ -12,11 +12,10 @@ public class GoogleUserController {
     public UserDTO user(@AuthenticationPrincipal OAuth2User principal) {
         // If no user is authenticated, return null or an anonymous user response
         if (principal == null) {
-            return null;  // Or you could return an anonymous/default user object
+            return null;
         }
 
-        // Extract relevant user details and return them as a DTO
-        String name = principal.getAttribute("name");  // Adjust key based on provider
+        String name = principal.getAttribute("name");  
         String email = principal.getAttribute("email");
         String picture = principal.getAttribute("picture");
 

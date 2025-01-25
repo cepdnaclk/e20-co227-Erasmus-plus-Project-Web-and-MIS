@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import {domainName} from "../DomainName"
 
 // Create a context to manage news data
 const NewsContext = createContext();
@@ -17,7 +18,7 @@ export const NewsProvider = ({ children }) => {
 
       // Send GET request to fetch news from the backend API
       try {
-        const response = await fetch('http://localhost:8080/api/v1/news', {
+        const response = await fetch(`${domainName}/api/v1/news`, {
           method: 'GET',
           headers: {
             'Cache-Control': 'no-cache, no-store, must-revalidate', // Ensures fresh response

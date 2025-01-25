@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import fileDownload from '../assets/download.png';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import Button from '@mui/material/Button';
 import style from "../components/ProjectManagement.module.css";
-import AddTaskIcon from '@mui/icons-material/AddTask';
 import CloseIcon from '@mui/icons-material/Close';
 import { Chart } from "react-google-charts";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faDownload, faUpload, faPen, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Dialog, DialogActions, DialogContent, Stack,Slider } from "@mui/material";
-// import {loggedInUser} from '../components/Header.jsx'
 import { ClipLoader } from "react-spinners";
+import {domainName} from "../DomainName"
 
 const ProjectManagement = () => {
 
@@ -87,7 +84,7 @@ const ProjectManagement = () => {
         const url = window.URL.createObjectURL(new Blob([file]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', "financialReport.txt");
+        link.setAttribute('download', "financialReport.docx");
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
@@ -172,7 +169,7 @@ const onAddSubmit = async (e) => {
 
 try {
     // console.log("report....",task.financialReport)
-    await axios.post("http://localhost:8080/api/v1/tasks/addWithUsers", formData, {
+    await axios.post(`${domainName}/api/v1/tasks/addWithUsers`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }});
@@ -203,7 +200,8 @@ const onUpdateSubmit = async (e) => {
   }
   formData.append("assignedUsers",JSON.stringify(assignedUsers.map(({ admin, ...assignedUsersDetails }) => assignedUsersDetails)))
   try {
-    await axios.put(`http://localhost:8080/api/v1/tasks/updateWithUsers`, formData, {
+    console.log("task.... ",formData)
+    await axios.put(`${domainName}/api/v1/tasks/updateWithUsers`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }});;
@@ -227,7 +225,7 @@ const onDeleteClick = async (task_ID) => {
 
   try {
 
-    await axios.delete(`http://localhost:8080/api/v1/tasks/${task_ID}`);
+    await axios.delete(`${domainName}/api/v1/tasks/${task_ID}`);
     RefreshTasks();
   } catch (error) {
     console.error("Error deleting tasks:", error);
@@ -241,9 +239,9 @@ function getAllTaskInfo(){
     let response
     try {
       
-        response = await axios.get('http://localhost:8080/api/v1/tasks');
+        response = await axios.get(`${domainName}/api/v1/tasks`);
       //for editing purrposes and adding new tasks
-      const Users = await axios.get('http://localhost:8080/api/v1/users');
+      const Users = await axios.get(`${domainName}/api/v1/users`);
       setTasks(response.data);       
       setUsers(Users.data.map(({ admin, ...rest }) => rest));
       if (response.data.length!=0) {
@@ -462,7 +460,7 @@ if(loggedInUser){
                 }
                 <span>|</span>
               <span className={style["fileActions"]}>Upload File</span>
-              <input type="file" placeholder="Select a file" className = "field"  onChange={handleFileChange}></input>
+              <input type="file" placeholder="Select a file" className = "field" accept=".docx" onChange={handleFileChange}></input>
                 </div>
               </div>
             </div>

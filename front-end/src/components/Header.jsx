@@ -6,7 +6,7 @@ import cylcleLogo from '../assets/CYCLE-logo.png';
 import erasmusLogo from '../assets/erasmus-plus-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faBell, faAngleRight, faUser, faUserCircle, faFile,faCalendarDays,faBars } from '@fortawesome/free-solid-svg-icons';
-
+import {domainName} from "../DomainName"
 // Global user state
 export let loggedInUser = { isLoggedIn: false, firstName: '', lastName: '' ,email:'',userID:'',userRole:'',isRegisteredUser:false,isAdmin:false};
 
@@ -29,7 +29,7 @@ function Header(){
     const [loggedInUserState,setLoggedInUser] = useState(loggedInUser.isLoggedIn); // if a user has logged in
 
     useEffect(() => {
-        axios.get('http://localhost:8080/user-info', { withCredentials: true }) 
+        axios.get(`${domainName}/user-info`, { withCredentials: true }) 
             .then(response => { 
 
                 //getting google account info
@@ -51,7 +51,7 @@ function Header(){
                 // for a null email -> no need to check (when the website is loading)
                    if(loggedInUser.email!=""){
 
-                       axios.post(`http://localhost:8080/api/v1/users/getUserByEmail`,{
+                       axios.post(`${domainName}/api/v1/users/getUserByEmail`,{
                            email:loggedInUser.email})
                        .then((res) => {  
                             // console.log(res.data)
@@ -81,7 +81,7 @@ function Header(){
         const fetchNotifications = async () => {
             try{
                 const user =JSON.parse(localStorage.getItem("loggedInUser"))
-                const response = await axios.get(`http://localhost:8080/api/v1/notifications/${user.userID}`);
+                const response = await axios.get(`${domainName}/api/v1/notifications/${user.userID}`);
                 setNotifications(response.data);
             } catch (error) {
                 console.error('Error fetching notifications: ', error);
@@ -92,7 +92,7 @@ function Header(){
     // Create a new notification
     const handleCreateNotification = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/notifications', newNotification, {
+            const response = await axios.post(`${domainName}/api/v1/notifications`, newNotification, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ function Header(){
     const googleLogin = async() => {
         // Redirect to the backend for Google login
         setIsVisible(false); 
-        window.location.href = await 'http://localhost:8080/oauth2/authorization/google';
+        window.location.href = await `${domainName}/api/v1/oauth2/authorization/google`;
         //fetch user data from backend
     }        
     
@@ -139,7 +139,7 @@ function Header(){
     })
 
     function logOut(){
-        axios.get('http://localhost:8080/logout', { withCredentials: true })
+        axios.get(`${domainName}/logout`, { withCredentials: true })
         .then(() => {
             // Clear any frontend user state
             loggedInUser = { isLoggedIn: false, firstName: '', lastName: '',email:'',userID:'' ,userRole:'',isRegisteredUser:false,isAdmin:false};
@@ -270,7 +270,7 @@ const renderNotifications = () => {
         setShowNotifications(false);
 
         // Notification Deletion
-        await axios.delete(`http://localhost:8080/api/v1/notifications/${notification.id}`);
+        await axios.delete(`${domainName}/api/v1/notifications/${notification.id}`);
         setNotifications((prevNotifications) =>
             prevNotifications.filter((n) => n.id !== notification.id)
     );

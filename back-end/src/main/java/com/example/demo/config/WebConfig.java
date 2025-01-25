@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") //apply these rules to all the applications
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins("https://icpc.pdn.ac.lk")
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*"); //allowing all headers

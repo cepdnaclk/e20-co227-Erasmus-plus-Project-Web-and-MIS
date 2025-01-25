@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
-@RequestMapping("/deliverable")
-@CrossOrigin("http://localhost:5173")
+@RequestMapping("/api/v1/deliverable")
 public class DeliverableController {
     @Autowired
     private DeliverableService deliverableService;
